@@ -8,27 +8,33 @@ const headless = false
 
 const intervalTimer = (1000*60*60)+(1000*60*10)
 
-testSverige()
-// init()
-// setInterval(()=>{
-//    init()
-// },intervalTimer)
+
+init()
+setInterval(()=>{
+   init()
+},intervalTimer)
 
 function init() {
-   for (let index = 0; index < 20; index++) {
-      start()
+   for (let index = 0; index < 50; index++) {
+      start2()
    }
 }
-async function testSverige() {
-   const selector = 'div.yt-spec-touch-feedback-shape__fill'
+async function start2() {
+   const selector = '/html/body/ytd-app/ytd-consent-bump-v2-lightbox/tp-yt-paper-dialog/div[4]/div[2]/div[6]/div[1]/ytd-button-renderer[2]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]'
    try {
       const browser = await puppeteer.launch({ 
          headless: headless
       });
       const  page = await browser.newPage();
-     await page.goto(youtubeLink)
-     await page.waitForSelector(selector)
-     await page.click(selector)
+      await page.setViewport({ width: 1280, height: 800 })
+      await page.goto(youtubeLink)
+     
+      await page.waitForXPath(selector)
+      const linkEx = await page.$x(selector)
+      if (linkEx.length > 0) {
+         await linkEx[0].click()
+       }
+     console.log("click")
    } catch (error) {
       console.log("error",error)
    }
