@@ -15,7 +15,7 @@ setInterval(()=>{
 },intervalTimer)
 
 function init() {
-   for (let index = 0; index < 50; index++) {
+   for (let index = 0; index < 5; index++) {
       start2()
    }
 }
@@ -25,16 +25,17 @@ async function start2() {
       const browser = await puppeteer.launch({ 
          headless: headless
       });
-      const  page = await browser.newPage();
-      await page.setViewport({ width: 1280, height: 800 })
-      await page.goto(youtubeLink)
-     
-      await page.waitForXPath(selector)
-      const linkEx = await page.$x(selector)
-      if (linkEx.length > 0) {
-         await linkEx[0].click()
-       }
-     console.log("click")
+      for (let index = 0; index < 5; index++) {
+         const  page = await browser.newPage();
+         await page.setViewport({ width: 1280, height: 800 })
+         await page.goto(youtubeLink)
+        
+         await page.waitForXPath(selector)
+         const linkEx = await page.$x(selector)
+         if (linkEx.length > 0) {
+            await linkEx[0].click()
+          }
+      }
    } catch (error) {
       console.log("error",error)
    }
